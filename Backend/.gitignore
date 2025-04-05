@@ -1,1 +1,3 @@
-/target
+# Rust
+target/
+**/*.rs.bk
