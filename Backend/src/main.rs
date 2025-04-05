@@ -1,6 +1,6 @@
 use axum::{
     extract::Query,
-    http::{HeaderMap, HeaderValue, Method},
+    http::Method,
     routing::get,
     Json, Router
 };
