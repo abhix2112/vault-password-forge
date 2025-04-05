@@ -1,27 +1,25 @@
-# Use Rust official image
+# Use Rust official image as builder
 FROM rust:latest AS builder
 
-# Set work directory
 WORKDIR /app
 
-# Copy files
-COPY . .
+# Copy Cargo files first to leverage Docker cache
+COPY Cargo.toml Cargo.lock ./
+COPY src ./src
 
-# Build the Rust app
+# Build the Rust application in release mode
 RUN cargo build --release
 
-# Use a smaller base image
+# Use a minimal image for the final build
 FROM debian:bullseye-slim
 
-# Set work directory
 WORKDIR /app
 
-# Copy the compiled binary from builder stage
-COPY --from=builder /app/target/release/vault-password-forge /app/
+# Copy the compiled binary from the builder stage
+COPY --from=builder /app/target/release/vault-password-forge /app/vault-password-forge
 
-# Expose the port Railway assigns
-ENV PORT=8080
+# Expose the application port
 EXPOSE 8080
 
-# Run the app
+# Run the application
 CMD ["/app/vault-password-forge"]

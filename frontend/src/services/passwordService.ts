@@ -1,5 +1,5 @@
 // Base API URL for all password-related services
-const API_BASE_URL = "http://192.168.0.1:3000";
+const API_BASE_URL = "http://192.168.1.101:3000";
 
 export interface SecurityScore {
   overall: number;

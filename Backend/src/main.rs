@@ -293,16 +293,16 @@ async fn check_breach(Query(params): Query<BreachCheckParams>) -> Json<BreachRes
 
 #[tokio::main]
 async fn main() {
-    
+    // Configure CORS
     let cors = CorsLayer::new()
-        
+        // Allow requests from any origin
         .allow_origin(Any)
-        
+        // Allow common methods
         .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
-    
+        // Allow common headers
         .allow_headers(Any);
     
-   
+    // Create router with routes and add CORS middleware
     let app = Router::new()
         .route("/generate", get(generate_password))
         .route("/passphrase", get(generate_passphrase))
@@ -311,14 +311,14 @@ async fn main() {
         .layer(cors);
     
     // Define the address
-    let addr = SocketAddr::from(([0,0,0,0], 3000));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
 
 
     println!("Server running on http://{}", addr);
     
-    
+    // Create a TcpListener
     let listener = TcpListener::bind(addr).await.unwrap();
     
-    
+    // Start the server
     axum::serve(listener, app).await.unwrap();
 }
