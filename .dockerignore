@@ -1,6 +1,0 @@
-target
-**/target
-**/Cargo.lock
-**/.git
-**/.github
-**/node_modules
