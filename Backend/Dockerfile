@@ -16,7 +16,8 @@ FROM debian:bullseye-slim
 WORKDIR /app
 
 # Copy the compiled binary from the builder stage
-COPY --from=builder /app/target/release/vault-password-forge /app/vault-password-forge
+COPY --from=builder /app/target/release/your-binary-name /app/vault-password-forge
+
 
 # Expose the application port
 EXPOSE 8080
